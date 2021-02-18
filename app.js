@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const config = require('./config');
+
 const path = require('path');
 
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 
-const bodyParser = require('body-parser');
-
-mongoose.connect('mongodb+srv://mh01:44rP7piFCyRdLirO@cluster0.raiyj.mongodb.net/DB-APP-Avis-Gastronomique?retryWrites=true&w=majority',
+mongoose.connect(config.mongoUri,
 { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch(() => console.log('Connexion à MongoDB échouée !'));
@@ -26,8 +27,8 @@ app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/api/auth', userRoutes);
 app.use('/api/sauces', sauceRoutes);
+app.use('/api/auth', userRoutes);
 
 
 module.exports = app;
