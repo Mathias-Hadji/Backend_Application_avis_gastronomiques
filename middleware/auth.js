@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+// Contrôle la validité du token d'authentification de l'user à chaque requête
 module.exports = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
