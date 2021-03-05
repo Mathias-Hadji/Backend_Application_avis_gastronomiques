@@ -10,7 +10,7 @@ const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 
 // Connexion DDB
-mongoose.connect(config.mongoUri,
+mongoose.connect(/* config.mongoUri */ 'mongodb+srv://mh01:bVXsLcAalxMoxfGI@cluster0.raiyj.mongodb.net/DB-APP-Avis-Gastronomique?retryWrites=true&w=majority',
 { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch(() => console.log('Connexion à MongoDB échouée !'));
