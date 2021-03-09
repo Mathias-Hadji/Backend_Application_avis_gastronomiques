@@ -8,11 +8,11 @@ const middlewareValidation = require('../middleware/validator');
 
 // USER ROUTES
 router.post('/signup',
-body('email').isEmail(), body('password').isLength({ min: 5 }), 
+body('email').isEmail(), body('password'), 
 middlewareValidation.inputValidator, userCtrl.signup);
 
 router.post('/login', 
-body('email').isEmail(), body('password').isLength({ min: 5 }), 
+body('email').isEmail(), body('password'), 
 middlewareValidation.inputValidator, userCtrl.login);
 
 
