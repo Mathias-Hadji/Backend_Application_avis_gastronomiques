@@ -3,7 +3,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
 
+const passwordValidator = require('../models/Password-validator')
+
+
 exports.signup = (req, res, next) => {
+    const checkPassword = passwordValidator.validate(req.body.password)
+    if(checkPassword == false){
+        return res.status(401).json({error: 'Password must have minimum length 8, maximum length 100, uppercase letters, lowercase letters, 2 digits'})
+    }
     bcrypt.hash(req.body.password, 10)
     .then(hash => {
         const user = new User({
@@ -33,7 +40,7 @@ exports.login = (req, res, next) => {
                 userId: user._id,
                 token: jwt.sign(
                     {userId: user._id},
-                    'RANDOM_SECRET_TOKEN',
+                    process.env.USER_TOKEN,
                     {expiresIn: '24h'}
                 )
             });
